@@ -1954,6 +1954,9 @@ function renderPost() {
 
   const objRows = data.filter(r => r[1] === obj);
   const byPost = sumBy(objRows, 2);
+  // Reach theo post lấy từ report Facebook — dùng khi không lọc theo tệp/ngày
+  const _cpNF = state.audience==='all' && !state.dateFrom && !state.dateTo && state.period==='all';
+  if (_cpNF && CFG.unique_reach_post && CFG.unique_reach_post[obj]) Object.keys(byPost).forEach(p => { if (CFG.unique_reach_post[obj][p]) byPost[p].reach = CFG.unique_reach_post[obj][p]; });
   const posts = Object.keys(byPost).filter(p=>p);
   if (posts.length === 0) {
     document.getElementById('postChartTitle').textContent = 'Không có post nào dưới objective này';
@@ -2102,7 +2105,7 @@ function renderPost() {
       row = `
         <td class="num">${fmtVND(m.cost)}</td>
         <td class="num">${fmt(m.impression)}</td>
-        <td class="num">${fmt(m.reach)}</td>
+        <td class="num">${fmtR(m.reach)}</td>
         <td class="num">${m.freq.toFixed(2)}</td>
         <td class="num bold">${fmt(m.cpm)}</td>
         <td class="num"><span class="pill ${ucColor}">${ucr.toFixed(0)}%</span></td>
