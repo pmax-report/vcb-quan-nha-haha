@@ -1496,7 +1496,7 @@ function renderOverview() {
   const cards = [card('total','Tổng chi', fmtVND(total.cost), `KPI ${fmtVND(KPI_TOTAL_BUDGET)}`, spendPct.toFixed(0)+'%', clsHi(Math.min(spendPct, 200)))];
   objSummaries.forEach(s => {
     let extra = '';
-    if (s.o === 'REACH' && s.m.reach) {
+    if (false && s.o === 'REACH' && s.m.reach) { // Ẩn dòng Unique Reach · Freq trên thẻ Reach
       const _nf = state.audience==='all' && state.objective==='all' && state.post==='all' && !state.dateFrom && !state.dateTo && state.period==='all';
       const ur = (_nf && CFG.unique_reach && CFG.unique_reach.REACH) ? CFG.unique_reach.REACH : s.m.reach;
       const freq = s.m.impression > 0 && ur > 0 ? (s.m.impression/ur).toFixed(2).replace('.', ',') : '—';
